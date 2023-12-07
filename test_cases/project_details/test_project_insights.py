@@ -1,0 +1,63 @@
+from page_objects.Login.login import Login
+from page_objects.ProjectDetails.ProjectInsights import ProjectInsights
+import time
+from utilities.readProperties import ReadConfig
+from self import self
+
+
+class TestProjectInsights:
+    baseURL = ReadConfig.get_application_url(self)
+    email = ReadConfig.get_email()
+    password = ReadConfig.get_password()
+
+    def test_project_insights(self, setup):
+        self.browser = setup
+        self.browser.get(self.baseURL)
+        self.lg = Login(self.browser)
+        self.lg.clickLogin()
+        time.sleep(3)
+        self.lg.setEmail(self.email)
+        self.lg.setpassword(self.password)
+        time.sleep(3)
+        self.lg.submit()
+        time.sleep(3)
+        self.ng = ProjectInsights(self.browser)
+        time.sleep(3)
+        self.ng.clickProjectTab()
+        time.sleep(3)
+        self.ng.selectProject()
+        time.sleep(3)
+        self.ng.clickInsightTab()
+        time.sleep(3)
+        self.ng.clickOverview()
+        time.sleep(3)
+        self.ng.seeLastUpdatedTasks()
+        time.sleep(3)
+        self.browser.back()
+        time.sleep(3)
+        self.ng.clickMembers()
+        time.sleep(5)
+        # self.ng.seeTaskByMembers()
+        # time.sleep(5)
+        self.ng.clickTasks()
+        time.sleep(3)
+        self.ng.seeOverDueTasks()
+        time.sleep(3)
+        self.browser.back()
+        time.sleep(3)
+        self.ng.clickTasks()
+        time.sleep(3)
+        self.ng.seeOverLoggedTasks()
+        time.sleep(3)
+        self.browser.back()
+        time.sleep(3)
+        self.ng.clickTasks()
+        time.sleep(3)
+        self.ng.seeCompletedEarlyTasks()
+        time.sleep(3)
+        self.browser.back()
+        time.sleep(3)
+        self.ng.clickTasks()
+        time.sleep(3)
+        self.ng.seeCompletedLateTasks()
+        time.sleep(5)
