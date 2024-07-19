@@ -7,7 +7,7 @@ from self import self
 
 
 class TestInviteOnboarding:
-    baseURL = ReadConfig.get_application_url(self)
+    baseURL = ReadConfig.get_application_url()
     username = ReadConfig.get_userName()
     email = ReadConfig.get_inviteEmail()
     password = ReadConfig.get_password()
@@ -17,7 +17,6 @@ class TestInviteOnboarding:
         self.browser.get(self.baseURL)
         self.Invite = InviteData()
         self.su = SignUp(self.browser)
-        self.su.clickLoginBtn()
         time.sleep(3)
         self.su.clickSignBtn()
         time.sleep(3)
