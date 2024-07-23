@@ -1,38 +1,10 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from page_objects.BasePage import Basepage
 from page_objects.Locators import SignUpLocators, InviteOnboardingLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 import time
-from test_cases.conftest import setup
-
-
-# class SignUp(Basepage):
-#
-#     def __init__(self, browser):
-#         super().__init__(browser)
-#         self.locators = SignUpLocators()
-#
-#     def clickLoginBtn(self):
-#         self.element_click("login_btn_xpath", self.locators.login_btn_xpath)
-#
-#     def clickSignBtn(self):
-#         self.element_click("signUP_btn_xpath", self.locators.signUp_btn_xpath)
-#
-#     def enterName(self, name):
-#         self.enter_input_name(name, "enter_name_xpath", self.locators.enter_name_xpath)
-#
-#     def enterEmail(self, email):
-#         self.enter_input_name(email, "enter_email_xpath", self.locators.enter_email_xpath)
-#
-#     def enterPassword(self, password):
-#         self.enter_input_name(password, "enter_password_xpath", self.locators.enter_password_xpath)
-#
-#     def clickSubmitBtn(self):
-#         self.element_click("submit_xpath", self.locators.submit_xpath)
 
 
 class InviteOnboarding(Basepage):
@@ -41,7 +13,6 @@ class InviteOnboarding(Basepage):
         super().__init__(driver)
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
-        self.locators = InviteOnboardingLocators()
         self.fake = Faker()
         self.task_names = ["Planning", "Designing", "Coding", "Testing", "Maintaining", "Release"]
 
@@ -177,5 +148,3 @@ class InviteOnboarding(Basepage):
 
                 else:
                     print(created_task + " task not created")
-
-
