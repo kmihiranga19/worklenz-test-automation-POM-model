@@ -78,7 +78,7 @@ class InviteOnboarding(Basepage):
         continue_btn = self.driver.find_element(By.XPATH, "//span[normalize-space()='Continue']")
         continue_btn.click()
         time.sleep(5)
-        return first_project_name
+        return first_project_name.strip()
 
     def create_first_tasks(self):
         add_another_task = self.driver.find_element(By.XPATH, "//span[normalize-space()='Add another']")
@@ -131,9 +131,8 @@ class InviteOnboarding(Basepage):
 
     def get_organization_name(self):
         header = self.driver.find_element(By.TAG_NAME, "worklenz-header")
-        header_div = header.find_elements(By.TAG_NAME, "div")[1]
-        header_ul = header_div.find_elements(By.TAG_NAME, "ul")[1]
-        team_selection = header_ul.find_elements(By.TAG_NAME, "li")[0]
+        header_2 = header.find_element(By.CLASS_NAME, "top-nav-ul-secondary")
+        team_selection = header_2.find_elements(By.TAG_NAME, "li")[1]
         team_selection.click()
         time.sleep(1)
         team_selection_items = self.driver.find_element(By.CLASS_NAME, "align-items-baseline")
@@ -179,20 +178,4 @@ class InviteOnboarding(Basepage):
                 else:
                     print(created_task + " task not created")
 
-    # def enterOrganizationName(self, orgName):
-    #     self.enter_input_name(orgName, "enter_organization_xpath", self.locators.enter_organization_xpath)
-    #
-    # def clickContinueBtn1(self):
-    #     self.element_click("continue_btn1_xpath", self.locators.continue_btn1_xpath)
-    #
-    # def enterProjectName(self, project):
-    #     self.enter_input_name(project, "enter_project_xpath", self.locators.enter_project_xpath)
-    #
-    # def clickContinueBtn2(self):
-    #     self.element_click("continue_btn2_xpath", self.locators.continue_btn2_xpath)
-    #
-    # def enterTask(self, task):
-    #     self.enter_input_name(task, "enter_task_xpath", self.locators.enter_task_xpath)
-    #
-    # def enterInviteEmail(self, inviteEmail):
-    #     self.enter_input_name(inviteEmail, "enter_inviteEmail_tag", self.locators.enter_inviteEmail_tag)
+
