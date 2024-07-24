@@ -2,23 +2,23 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from page_objects.BasePage import Basepage
 from page_objects.Locators import LoginLocators
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Login(Basepage):
 
-    def __init__(self, browser):
-        super().__init__(browser)
-        self.locators = LoginLocators()
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
 
-    def clickLogin(self):
-        self.element_click("login_btn_xpath", self.locators.login_btn_xpath)
+    def enter_email(self, email):
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Email']"))).send_keys(
+            email)
 
-    def setEmail(self, email):
-        self.enter_login_email(email,"email_input_xpath", self.locators.email_input_xpath)
-
-    def setpassword(self, password):
-        self.enter_login_password(password, "password_input_xpath", self.locators.password_input_xpath)
+    def enter_password(self, password):
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Password']"))).send_keys(password)
 
     def submit(self):
-        self.element_click("login_submit_btn_xpath", self.locators.login_submit_btn_xpath)
-
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Log in']"))).click()

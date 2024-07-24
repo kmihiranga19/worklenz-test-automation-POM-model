@@ -57,14 +57,14 @@ class Basepage:
         element.click()
         element.send_keys(text + Keys.ENTER)
 
-    def enter_login_email(self,text, locator_name,locator_value):
-        element = self.get_element(locator_name, locator_value)
-        element.clear()
-        element.send_keys(text)
-
-    def enter_login_password(self,text,locator_name,locator_value):
-        element = self.get_element(locator_name,locator_value)
-        element.send_keys(text)
+    # def enter_login_email(self,text, locator_name,locator_value):
+    #     element = self.get_element(locator_name, locator_value)
+    #     element.clear()
+    #     element.send_keys(text)
+    #
+    # def enter_login_password(self,text,locator_name,locator_value):
+    #     element = self.get_element(locator_name,locator_value)
+    #     element.send_keys(text)
 
     def set_timelog(self, text,locator_name,locator_value):
         element = self.get_element(locator_name,locator_value)

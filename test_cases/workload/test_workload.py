@@ -4,24 +4,23 @@ import time
 from utilities.readProperties import ReadConfig
 from self import self
 from test_data.test_data import ProjectWorkloadData
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import csv
 
 
 class TestWorkload:
-    baseURL = ReadConfig.get_application_url(self)
+    baseURL = ReadConfig.get_application_url()
     email = ReadConfig.get_email()
     password = ReadConfig.get_password()
 
-    def test_workload(self, setup):
+    def test_workload_act(self, setup):
         self.browser = setup
         self.browser.get(self.baseURL)
         self.workloadData = ProjectWorkloadData()
         self.lg = Login(self.browser)
-        time.sleep(3)
-        self.lg.clickLogin()
-        time.sleep(3)
-        self.lg.setEmail(self.email)
-        self.lg.setpassword(self.password)
-        time.sleep(3)
+        self.lg.enter_email(self.email)
+        self.lg.enter_password(self.password)
         self.lg.submit()
         time.sleep(3)
         self.wl = Workload(self.browser)
@@ -74,6 +73,30 @@ class TestWorkload:
         time.sleep(5)
         self.wl.clickExpandBtn()
         time.sleep(10)
+
+    def test_a(self, setup):
+        self.email1 = "ss@d.com"
+        self.psw = "ceyDigital#00"
+        self.driver = setup
+        self.driver.get("https://app.worklenz.com/auth/login")
+        self.lg = Login(self.driver)
+        self.lg.enter_email(self.email1)
+        self.lg.enter_password(self.psw)
+        self.lg.submit()
+        self.wrl = Workload(self.driver)
+        self.wrl.go_to_projects()
+        if self.driver.current_url == "https://app.worklenz.com/worklenz/projects":
+            self.teams = self.wrl.get_teams()
+            self.wrl.workload_main(self.teams)
+
+        else:
+            print("Your are not navigate correct page")
+
+
+
+
+
+
 
 
 

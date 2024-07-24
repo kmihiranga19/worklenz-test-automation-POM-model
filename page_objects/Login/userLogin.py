@@ -8,29 +8,25 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class login:
 
-    def __init__(self):
-        self.wait = None
-        self.driver = None
-
-    def setup_method(self, driver):
+    def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 20)
-        self.driver.get("https://uat.app.worklenz.com/auth/login")
-        self.driver.maximize_window()
+        self.wait = WebDriverWait(self.driver, 10)
 
     def enter_credentials(self, email, password):
-        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Email']"))).send_keys(email)
-        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Password']"))).send_keys(password)
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Email']"))).send_keys(
+            email)
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Password']"))).send_keys(
+            password)
         self.wait.until(EC.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Log in']"))).click()
 
-    def o(self):
+    def Verify_user_able_login_with_correct_credentials(self):
         self.enter_credentials("ceyare4516@mliok.com", "ceyDigital#00")
 
         try:
             self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "logo-holder")))
 
         except NoSuchElementException:
-            pytest.fail("Test case fail: Verify user unable login with correct credentials")
+            pytest.fail("Test case fail: Verify user able login with correct credentials")
 
         self.driver.quit()
 
@@ -67,5 +63,3 @@ class login:
             pytest.fail("Test case fail: Verify user able login with wrong password")
 
         self.driver.quit()
-
-
