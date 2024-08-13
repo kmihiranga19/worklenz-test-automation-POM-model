@@ -98,8 +98,9 @@ class Workload(Basepage):
         return teams_list
 
     def workload_projects(self):
-        t_body = self.driver.find_element(By.TAG_NAME, "tbody")
-        projects = t_body.find_elements(By.TAG_NAME, "tr")
+        t_body = self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "tbody")))
+        t_body_wait = WebDriverWait(t_body, 10)
+        projects = t_body_wait.until(EC.visibility_of_any_elements_located((By.TAG_NAME, "tr")))
         projects[0].click()  # select need project using index
 
     def show_need_fields(self):
@@ -137,7 +138,7 @@ class Workload(Basepage):
     def task_list(self):
         tasks_rows = self.wait.until(EC.visibility_of_any_elements_located((By.TAG_NAME, "worklenz-task-list-row")))
         filename = "_records11.csv"
-        with open(filename, 'w1', newline='') as csvfile:
+        with open(filename, 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
             fields = ['Member', 'Task_name', 'Start_date', 'End_date']
             csvwriter.writerow(fields)

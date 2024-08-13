@@ -1,4 +1,4 @@
-from page_objects.Invite.InviteOnboarding import InviteOnboarding
+from page_objects.Signup_Onboarding.Onboarding import Signup_Onboarding
 import time
 from test_data.test_data import InviteData
 from utilities.readProperties import ReadConfig
@@ -14,7 +14,7 @@ class TestInviteOnboarding:
     def test_invite_Onboarding(self, setup):
         self.driver = setup
         self.driver.get("https://uat.app.worklenz.com/auth/signup")
-        self.lg = InviteOnboarding(self.driver)
+        self.lg = Signup_Onboarding(self.driver)
         self.lg.signUp()
         self.organization_name = self.lg.give_organization_name()
         self.project_name = self.lg.create_first_project()
