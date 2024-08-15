@@ -1,5 +1,4 @@
 import time
-
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,7 +8,7 @@ import re
 import csv
 
 
-class KanbanBoard:
+class KanbanBoardTaskCount:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
