@@ -31,16 +31,15 @@ class ReportingOverview:
             EC.visibility_of_element_located((By.CLASS_NAME, "profile-details-dropdown")))
         profile_details_wait = WebDriverWait(profile_details, 10)
         profile_details_wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "li")))[1].click()
+        time.sleep(2)
         sider = self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "nz-sider")))
         sider_wait = WebDriverWait(sider, 10)
-        sider_wait.until(EC.visibility_of_any_elements_located((By.TAG_NAME, "li")))[8].click()
+        sider.find_elements(By.TAG_NAME, "li")[8].click()
         time.sleep(2)
         pagination = self.driver.find_element(By.TAG_NAME, "nz-pagination")
         page_drop_down = pagination.find_elements(By.TAG_NAME, "li")[-1]
         page_drop_down.click()
-        time.sleep(2)
-        maxi_pages = self.driver.find_elements(By.TAG_NAME, "nz-option-item")[-1]
-        maxi_pages.click()
+        self.wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "nz-option-item")))[-1].click()
         time.sleep(3)
 
     def get_team_members(self):
