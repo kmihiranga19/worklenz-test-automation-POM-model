@@ -26,7 +26,7 @@ class CustomTemplate:
 
     def go_to_projects_tab(self):
         self.driver.get("https://uat.app.worklenz.com/worklenz/projects")
-        time.sleep(1)
+        time.sleep(5)
 
     def check_need_tasksList_fields_visible(self):
         show_fields = self.wait.until(
@@ -205,3 +205,15 @@ class CustomTemplate:
         else:
             self.wait.until(
                 EC.visibility_of_element_located((By.XPATH, "//span[contains(text(),'Create Project')]"))).click()
+
+    def tasks_information_saved_successfully(self):
+        for task in self.taskInfo:
+            # print(task)
+
+            if task in self.customSaveTaskInfo:
+                print(task["name"], "Task's information Saved successfully")
+
+            else:
+                print(task["name"], "Task's information Not saved successfully")
+
+        time.sleep(10)
