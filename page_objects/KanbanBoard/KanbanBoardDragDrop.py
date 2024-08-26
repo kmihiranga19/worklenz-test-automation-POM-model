@@ -19,6 +19,7 @@ class KanbanBoardDragDrop:
         self.done_status_tasks_details = []
 
     def project_tab(self):
+
         self.wait.until(
             EC.visibility_of_element_located((By.XPATH, "//strong[normalize-space()='Projects']"))).click()
 
