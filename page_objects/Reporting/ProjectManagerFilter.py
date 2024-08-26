@@ -10,15 +10,15 @@ import re
 import csv
 
 
-class KanbanBoardDragDrop:
+class ProjectManagerFilter:
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
 
     def reporting(self):
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, Xpath_locators.reporting_xpath))).click()
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, Xpath_locators.reporting_projects_xpath))).click()
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, "//strong[normalize-space()='Reporting']"))).click()
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, "//li[@class='ant-menu-item'][normalize-space()='Projects']"))).click()
 
     def project_manger_filed_check(self):
         head_wrapper = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-card-head-wrapper")))
@@ -26,7 +26,7 @@ class KanbanBoardDragDrop:
         button = head_wrapper_wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, "button")))[4]
         button_wait = WebDriverWait(button, 10)
         button_wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "span")))[1].click()
-        show_filed_items_menu = wait.until(
+        show_filed_items_menu = self.wait.until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ant-dropdown-menu-vertical")))
         show_filed_items_menu_wait = WebDriverWait(show_filed_items_menu, 10)
         manger_checkbox = \
@@ -41,15 +41,15 @@ class KanbanBoardDragDrop:
         else:
             button.click()
 
-    def get_filtering_project_manager():
+    def get_filtering_project_manager(self):
         not_need_span = '<input type="checkbox" class="ant-checkbox-input ng-untouched ng-pristine ng-valid"><span class="ant-checkbox-inner"></span>'
-        head_wrapper = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-card-head-wrapper")))
+        head_wrapper = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-card-head-wrapper")))
         head_wrapper_wait = WebDriverWait(head_wrapper, 10)
         button = head_wrapper_wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, "button")))[3]
         button_wait = WebDriverWait(button, 10)
         button_wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "span")))[1].click()
         time.sleep(4)
-        drop_down_menu = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-dropdown-menu-vertical")))
+        drop_down_menu = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-dropdown-menu-vertical")))
         drop_down_menu_wait = WebDriverWait(drop_down_menu, 20)
         project_manger = drop_down_menu_wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "li")))[1]
         project_manger_wait = WebDriverWait(project_manger, 20)
@@ -61,10 +61,10 @@ class KanbanBoardDragDrop:
                 project_manager_name = span_tag.get_attribute('innerHTML')
                 return project_manager_name.strip()
 
-    def get_project_manager_projects(filtered_manager_name):
+    def get_project_manager_projects(self, filtered_manager_name):
         projects_details = []
 
-        table = wait.until(EC.visibility_of_element_located((By.TAG_NAME, "tbody")))
+        table = self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "tbody")))
         time.sleep(2)
         rows = table.find_elements(By.TAG_NAME, "tr")
         for index, row in enumerate(rows):
@@ -90,16 +90,16 @@ class KanbanBoardDragDrop:
 
         return projects_details
 
-    def filtering_project_manager():
-        drop_down_menu = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-dropdown-menu-vertical")))
+    def filtering_project_manager(self):
+        drop_down_menu = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "ant-dropdown-menu-vertical")))
         drop_down_menu_wait = WebDriverWait(drop_down_menu, 20)
         select_project_manger = drop_down_menu_wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, "li")))[1]
         select_project_manger.click()
 
-    def get_projects_after_filtering():
+    def get_projects_after_filtering(self):
         filtered_projects_details = []
 
-        table = wait.until(EC.visibility_of_element_located((By.TAG_NAME, "tbody")))
+        table = self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "tbody")))
         time.sleep(2)
         rows = table.find_elements(By.TAG_NAME, "tr")
         for index, row in enumerate(rows):
@@ -119,7 +119,7 @@ class KanbanBoardDragDrop:
 
         return filtered_projects_details
 
-    def check_filter_work_correctly(p_manager_projects, p_filtered_projects):
+    def check_filter_work_correctly(self, p_manager_projects, p_filtered_projects):
         result = True
         if len(p_manager_projects) != len(p_filtered_projects):
             return False
