@@ -6,10 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class Login(Basepage):
+class Login:
 
     def __init__(self, driver):
-        super().__init__(driver)
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
 
