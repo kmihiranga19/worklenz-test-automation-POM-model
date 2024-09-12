@@ -22,9 +22,9 @@ class Signup_Onboarding(Basepage):
         self.wait.until(EC.visibility_of_element_located((By.ID, "full-name"))).send_keys(random_name)
         self.wait.until(EC.visibility_of_element_located((By.ID, "email"))).send_keys(random_email)
         self.wait.until(EC.visibility_of_element_located((By.ID, "password"))).send_keys("ceyDigital#00")
-        form = self.driver.find_element(By.TAG_NAME, "form")
-        sign_up = form.find_elements(By.TAG_NAME, "button")[0]
-        sign_up.click()
+        # form = self.driver.find_element(By.TAG_NAME, "form")
+        # form_wait = WebDriverWait(form, 10)
+        self.wait.until(EC.presence_of_element_located((By.XPATH, "//span[normalize-space()='Sign up']"))).click()
         time.sleep(2)
 
     def give_organization_name(self):
