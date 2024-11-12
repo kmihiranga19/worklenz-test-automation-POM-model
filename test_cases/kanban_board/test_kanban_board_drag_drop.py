@@ -8,7 +8,7 @@ class TestKanbanBoard:
     email = ReadConfig.get_email()
     password = ReadConfig.get_password()
 
-    def test_kanban_board_drag_drop(self,setup):
+    def test_kanban_board_drag_drop(self, setup):
         self.driver = setup
         self.driver.get(self.baseURL)
         self.lg = Login(self.driver)

@@ -4,6 +4,6 @@ from selenium import webdriver
 
 @pytest.fixture()
 def setup():
-    browser = webdriver.Chrome()
+    browser = webdriver.Firefox()
     browser.maximize_window()
     return browser

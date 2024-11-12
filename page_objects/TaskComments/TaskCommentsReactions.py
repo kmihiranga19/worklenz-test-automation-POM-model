@@ -54,16 +54,24 @@ class TaskCommentsReactions:
             pass
 
     def check_whether_user_able_to_remove_reaction_on_comment(self):
+        element = self.wait.until(EC.visibility_of_element_located((By.XPATH, "/html[1]/body[1]/div[1]/div[5]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]")))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+
         comment = self.wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, "nz-comment")))[-1]
         comment_wait = WebDriverWait(comment, 10)
         count = comment_wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "count")))[-1].text
         if int(count) == 0:
             comment_wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span[nztype='like']")))[-1].click()
-            time.sleep(2)
-            if int(count) == 0:
-                pytest.fail("Test case Fail - Check whether user able to remove reaction on comment")
-            else:
-                pass
+            comment_wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span[nztype='like']")))[-1].click()
+            if int(count) > 0:
+                pytest.fail("Test case fail : check_whether_user_able_to_remove_reaction_on_comment")
                 
         else:
-            pass
+            comment_wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span[nztype='like']")))[-1].click()
+            if int(count) > 0:
+                pytest.fail("Test case fail : check_whether_user_able_to_remove_reaction_on_comment")
+
+    
+
+
+
